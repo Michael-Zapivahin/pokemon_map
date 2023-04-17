@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Pokemon(models.Model):
     title = models.TextField()
     image = models.ImageField(blank=True)
@@ -20,10 +21,6 @@ class PokemonEntity(models.Model):
     defence = models.IntegerField(verbose_name='Defence', null=True)
     stamina = models.IntegerField(verbose_name='Stamina', null=True)
 
-
     def __str__(self):
         return f'lat: {self.lat}, lon: {self.lon}'
-
-
-
 
