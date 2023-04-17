@@ -14,6 +14,11 @@ class PokemonEntity(models.Model):
     lon = models.FloatField(blank=True)
     appeared_at = models.DateTimeField(null=True)
     disappeared_at = models.DateTimeField(null=True)
+    level = models.IntegerField(verbose_name='Level', null=True)
+    health = models.IntegerField(verbose_name='Health', null=True)
+    strength = models.IntegerField(verbose_name='Strength', null=True)
+    defence = models.IntegerField(verbose_name='Defence', null=True)
+    stamina = models.IntegerField(verbose_name='Stamina', null=True)
 
 
     def __str__(self):
