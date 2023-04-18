@@ -3,6 +3,7 @@ from django.db import models
 
 class Pokemon(models.Model):
     title = models.TextField()
+    description = models.TextField(null=True)
     image = models.ImageField(blank=True)
 
     def __str__(self):

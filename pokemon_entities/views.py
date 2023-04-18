@@ -66,6 +66,7 @@ def show_pokemon(request, pokemon_id):
         return
     pokemons_on_page = {
         "pokemon_id": pokemon.id,
+        'description': pokemon.description,
         "title_ru": pokemon.title,
         "img_url": pokemon.image.url
     }
