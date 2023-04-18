@@ -1,5 +1,4 @@
 import folium
-import json
 
 
 from django.http import HttpResponseNotFound
@@ -49,8 +48,8 @@ def show_all_pokemons(request):
             )
         pokemons_on_page.append({
             'pokemon_id': pokemon.id,
-            'img_url': pokemon.image.path,
-            'title_ru': pokemon.title,
+            'img_url': pokemon.image.url,
+            'title_ru': pokemon.title_rus,
         })
 
     return render(request, 'mainpage.html', context={
@@ -67,7 +66,7 @@ def show_pokemon(request, pokemon_id):
     pokemons_on_page = {
         "pokemon_id": pokemon.id,
         "description": pokemon.description,
-        "title_ru": pokemon.title,
+        "title_ru": pokemon.title_rus,
         "title_en": pokemon.title_en,
         "title_jp": pokemon.title_jp,
         "img_url": pokemon.image.url
@@ -76,13 +75,13 @@ def show_pokemon(request, pokemon_id):
     kid = pokemon.kids.first()
     if pokemon.parent:
         pokemons_on_page["previous_evolution"] = {
-            "title_ru": pokemon.parent.title,
+            "title_ru": pokemon.parent.title_rus,
             "pokemon_id": pokemon.parent.id,
             "img_url": pokemon.parent.image.url,
         }
     if kid:
         pokemons_on_page["next_evolution"] = {
-            "title_ru": kid.title,
+            "title_ru": kid.title_rus,
             "pokemon_id": kid.id,
             "img_url": kid.image.url,
         }
@@ -101,6 +100,6 @@ def show_pokemon(request, pokemon_id):
         )
 
     return render(request, "pokemon.html", context={
-        "map": folium_map._repr_html_(), "pokemon": pokemons_on_page
+        'map': folium_map._repr_html_(), 'pokemon': pokemons_on_page
     })
 
