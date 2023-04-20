@@ -5,10 +5,11 @@ class Pokemon(models.Model):
     title_rus = models.CharField(max_length=200, blank=True, verbose_name='название рус.')
     title_en = models.CharField(max_length=200, blank=True, verbose_name='название анл.')
     title_jp = models.CharField(max_length=200, blank=True, verbose_name='название япн.')
-    description = models.TextField(verbose_name='описание', null=True)
-    image = models.ImageField(verbose_name='изображение', blank=True)
+    description = models.TextField(blank=True, verbose_name='описание')
+    image = models.ImageField(verbose_name='изображение')
     parent = models.ForeignKey(
-        'self', on_delete=models.SET_NULL, null=True, blank=True, related_name='kids', verbose_name='эволюция'
+        'self', on_delete=models.SET_NULL,
+        null=True, blank=True, related_name='kids', verbose_name='эволюция'
     )
 
     def __str__(self):
@@ -16,9 +17,11 @@ class Pokemon(models.Model):
 
 
 class PokemonEntity(models.Model):
-    pokemon = models.ForeignKey(Pokemon, blank=True, on_delete=models.CASCADE)
-    lat = models.FloatField(verbose_name='широта', blank=True)
-    lon = models.FloatField(verbose_name='долгота', blank=True)
+    pokemon = models.ForeignKey(
+        Pokemon, on_delete=models.CASCADE, verbose_name='Свойства покемона', related_name='pokemon'
+    )
+    lat = models.FloatField(verbose_name='широта', blank=True, null=True)
+    lon = models.FloatField(verbose_name='долгота', blank=True, null=True)
     appeared_at = models.DateTimeField(verbose_name='появился в', null=True, blank=True)
     disappeared_at = models.DateTimeField(verbose_name='исчез в', null=True, blank=True)
     level = models.IntegerField(verbose_name='уровень', null=True, blank=True)
