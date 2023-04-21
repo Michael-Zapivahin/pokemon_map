@@ -2,14 +2,14 @@ from django.db import models
 
 
 class Pokemon(models.Model):
-    title_rus = models.CharField(max_length=200, blank=True, verbose_name='название рус.')
+    title_rus = models.CharField(max_length=200, verbose_name='название рус.')
     title_en = models.CharField(max_length=200, blank=True, verbose_name='название анл.')
     title_jp = models.CharField(max_length=200, blank=True, verbose_name='название япн.')
     description = models.TextField(blank=True, verbose_name='описание')
     image = models.ImageField(verbose_name='изображение')
     parent = models.ForeignKey(
         'self', on_delete=models.SET_NULL,
-        null=True, blank=True, related_name='kids', verbose_name='эволюция'
+        null=True, blank=True, related_name='kids', verbose_name='Родитель'
     )
 
     def __str__(self):
@@ -18,7 +18,7 @@ class Pokemon(models.Model):
 
 class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(
-        Pokemon, on_delete=models.CASCADE, verbose_name='Свойства покемона', related_name='pokemon'
+        Pokemon, on_delete=models.CASCADE, verbose_name='Свойства покемона', related_name='entities'
     )
     lat = models.FloatField(verbose_name='широта', blank=True, null=True)
     lon = models.FloatField(verbose_name='долгота', blank=True, null=True)

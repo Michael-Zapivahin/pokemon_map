@@ -80,8 +80,12 @@ def show_pokemon(request, pokemon_id):
             "img_url": kid.image.url,
         }
     time_now = timezone.now()
-    pokemon_entities = PokemonEntity.objects.filter(
-        pokemon=pokemon,
+    # pokemon_entities = PokemonEntity.objects.filter(
+    #     pokemon=pokemon,
+    #     appeared_at__lte=time_now,
+    #     disappeared_at__gte=time_now
+    # )
+    pokemon_entities = pokemon.entities.filter(
         appeared_at__lte=time_now,
         disappeared_at__gte=time_now
     )
